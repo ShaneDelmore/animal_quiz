@@ -8,16 +8,38 @@ class AnimalFinder
     File.open(Dir.pwd + '/animal_finder.yaml', 'r') { |f| YAML.load(f) }
   end
   
-  attr_accessor :classifiers, :animals
+  attr_accessor :classifiers, :animals, :user_animal
 
   def initialize
     @classifiers = []
     @animals = Set.new
+    @user_animal = nil
   end
 
-  def save
-    # puts Dir.pwd + '/animal_finder.yaml'
+  def save_and_reset
+    save_animal
+    update_classifiers
+    reset_finder_state
     File.open(Dir.pwd + '/animal_finder.yaml', 'w+') {|f| f.write(self.to_yaml) }
+  end
+
+  def save_animal
+    animals << user_animal if user_animal
+  end
+
+  def update_classifiers
+    if user_animal
+      answered_classifiers.each do |classifier|
+        classifier.add_solution(user_animal, classifier.answer)
+      end
+    end
+  end
+
+  def reset_finder_state
+    @user_animal = nil
+    answered_classifiers.each do |classifier|
+      classifier.answer = nil
+    end
   end
 
   def potential_solutions

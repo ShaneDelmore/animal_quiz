@@ -14,8 +14,10 @@ class Classifier
   def add_solution(item, matched)
     if matched 
       positive_solutions << item
+      negative_solutions.delete(item)
     else
       negative_solutions << item
+      positive_solutions.delete(item)
     end
   end
 

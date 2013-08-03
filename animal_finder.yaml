@@ -1,30 +1,208 @@
 --- !ruby/object:AnimalFinder
 classifiers:
 - !ruby/object:Classifier
-  question: Can it swim?
+  question: Does it spend a large portion of it's life in water?
   negative_solutions: !ruby/object:Set
     hash:
       :hummingbird: true
+      :beagle: true
+      :kangaroo: true
+      :giraffe: true
+      :snake: true
+      :spider: true
+      :turtle: true
+      :lion: true
+      :horse: true
   positive_solutions: !ruby/object:Set
     hash:
       :salmon: true
+      :otter: true
+      :penguin: true
+      :swan: true
+      :dolphin: true
+      :frog: true
+      :crocodile: true
+  answer: 
 - !ruby/object:Classifier
   question: Can it fly?
   negative_solutions: !ruby/object:Set
     hash:
       :salmon: true
+      :otter: true
+      :penguin: true
+      :kangaroo: true
+      :giraffe: true
+      :dolphin: true
+      :snake: true
+      :spider: true
+      :turtle: true
+      :frog: true
+      :lion: true
+      :horse: true
+      :crocodile: true
   positive_solutions: !ruby/object:Set
     hash:
       :hummingbird: true
+      :swan: true
+  answer: 
 - !ruby/object:Classifier
   question: Does it have scales?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :otter: true
+      :penguin: true
+      :dolphin: true
+      :frog: true
+      :crocodile: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :salmon: true
+  answer: 
+- !ruby/object:Classifier
+  question: Does it have whiskers?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :penguin: true
+      :dolphin: true
+      :frog: true
+      :crocodile: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :otter: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is Snoopy one of these?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :kangaroo: true
+      :giraffe: true
+      :snake: true
+      :spider: true
+      :turtle: true
+      :lion: true
+      :horse: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :beagle: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is it native to Australia?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :giraffe: true
+      :snake: true
+      :spider: true
+      :turtle: true
+      :lion: true
+      :horse: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :kangaroo: true
+  answer: 
+- !ruby/object:Classifier
+  question: Does it have a long neck?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :snake: true
+      :spider: true
+      :turtle: true
+      :lion: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :giraffe: true
+      :horse: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is it a water fowl?
   negative_solutions: !ruby/object:Set
     hash: {}
   positive_solutions: !ruby/object:Set
     hash:
-      :salmon: true
+      :swan: true
+- !ruby/object:Classifier
+  question: Is it a mammal?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :frog: true
+      :crocodile: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :dolphin: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is it a reptile?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :turtle: true
+      :lion: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :snake: true
+  answer: 
+- !ruby/object:Classifier
+  question: Does it have 8 legs?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :lion: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :spider: true
+  answer: 
+- !ruby/object:Classifier
+  question: Does it have a shell?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :lion: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :turtle: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is it an amphibian?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :frog: true
+      :crocodile: true
+  answer: 
+- !ruby/object:Classifier
+  question: Does it have a mane?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :lion: true
+- !ruby/object:Classifier
+  question: Does it have hooves?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :horse: true
+- !ruby/object:Classifier
+  question: Is it a predator?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :crocodile: true
 animals: !ruby/object:Set
   hash:
     :hummingbird: true
     :salmon: true
     :penguin: true
+    :otter: true
+    :beagle: true
+    :kangaroo: true
+    :giraffe: true
+    :swan: true
+    :dolphin: true
+    :snake: true
+    :spider: true
+    :turtle: true
+    :frog: true
+    :lion: true
+    :horse: true
+    :crocodile: true
+user_animal: 
