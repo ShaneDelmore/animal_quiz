@@ -8,7 +8,7 @@ class AnimalFinder
     File.open(Dir.pwd + '/animal_finder.yaml', 'r') { |f| YAML.load(f) }
   end
   
-  attr_accessor :classifiers, :animals, :user_animal
+  attr_accessor :classifiers, :animals, :user_animal, :ui
 
   def initialize
     @classifiers = []
@@ -91,12 +91,55 @@ class AnimalFinder
   end
 
   def next_classifier
-    # Choose one of the two most useful questions randomly to introduce a small
-    # amount of variety.
-    sorted_potential_classifiers.last(2).sample
+    sorted_potential_classifiers.last
   end
 
   def keep_playing?
     next_classifier && (potential_solutions.length > 1)
+  end
+
+  def empty_question(question)
+    Classifier.new(question)
+  end
+
+  def next_learning_question
+    #Return the question with the fewest related items so I can learn more about it.
+    unanswered_classifiers.sort_by { |item| (item.related_items & potential_solutions).length }.first
+  end
+
+  def play
+    ui.tell "Think of an animal and I will try to figure out what it is."
+
+    while keep_playing?
+      next_question = next_classifier
+      next_question.answer = ui.ask_yes_no(next_question.question)
+    end
+
+    #Ask one more unrelated question to help with learning.
+    #todo
+    learning_question = next_learning_question
+    learning_question.answer = ui.ask_yes_no(learning_question.question)
+    # p learning_question
+    # add_or_update_classifier(learning_question)
+
+    if potential_solutions.length == 1 
+      result = ui.ask(potential_solutions.first.to_s + '?')
+      self.user_animal = potential_solutions.first if result == 'y'
+    end
+
+    if user_animal.nil?
+      if potential_solutions.length > 1
+        ui.tell "I think it might be one of these but can't be sure:"
+        potential_solutions.each do |solution|
+          ui.tell solution.to_s
+        end
+      end
+      self.user_animal = ui.ask("What was the animal you were thinking of?").to_sym
+      new_question = ui.ask("Please enter a question to help me find your animal next game.")
+      classifier = empty_question(new_question)
+      classifier.add_solution(user_animal, true)
+      add_or_update_classifier(classifier)
+    end
+    # update_classifiers
   end
 end
