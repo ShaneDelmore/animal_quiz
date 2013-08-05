@@ -27,6 +27,15 @@ class AnimalFinder
     animals << user_animal if user_animal
   end
 
+  def add_or_update_classifier(classifier)
+    existing_question = classifiers.find { |i| i.question == classifier.question } 
+    if existing_question
+      existing_question.answer = true
+    else
+      classifiers << classifier
+    end
+  end
+
   def update_classifiers
     if user_animal
       answered_classifiers.each do |classifier|
@@ -64,8 +73,27 @@ class AnimalFinder
     end
   end
 
+  def sorted_potential_classifiers
+    potential_classifiers.sort_by do |classifier|
+      #sort by minimum exclusions, then maximum exclusions.
+      [min_exclusions(classifier), max_exclusions(classifier)]
+    end
+  end
+
+  def min_exclusions(classifier)
+    [(classifier.negative_solutions & potential_solutions).length, 
+     (classifier.positive_solutions & potential_solutions).length].min
+  end
+
+  def max_exclusions(classifier)
+    [(classifier.negative_solutions & potential_solutions).length, 
+     (classifier.positive_solutions & potential_solutions).length].max
+  end
+
   def next_classifier
-    potential_classifiers.first
+    # Choose one of the two most useful questions randomly to introduce a small
+    # amount of variety.
+    sorted_potential_classifiers.last(2).sample
   end
 
   def keep_playing?

@@ -44,19 +44,4 @@ class Classifier
   end
 end
 
-# class ClassifierSolution
-#   attr_reader :item
-# 
-#   def initialize(item, matched)
-#     @item = item
-#     @matched = matched
-#   end
-# 
-#   def matched?
-#     @matched
-#   end
-# 
-#   def ==(other_solution)
-#     item == other_solution.item
-#   end
-# end
+

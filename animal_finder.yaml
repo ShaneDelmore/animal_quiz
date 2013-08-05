@@ -13,6 +13,10 @@ classifiers:
       :turtle: true
       :lion: true
       :horse: true
+      :pig: true
+      :chicken: true
+      :deer: true
+      :unicorn: true
   positive_solutions: !ruby/object:Set
     hash:
       :salmon: true
@@ -40,6 +44,10 @@ classifiers:
       :lion: true
       :horse: true
       :crocodile: true
+      :pig: true
+      :chicken: true
+      :deer: true
+      :unicorn: true
   positive_solutions: !ruby/object:Set
     hash:
       :hummingbird: true
@@ -54,21 +62,10 @@ classifiers:
       :dolphin: true
       :frog: true
       :crocodile: true
+      :chicken: true
   positive_solutions: !ruby/object:Set
     hash:
       :salmon: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have whiskers?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :penguin: true
-      :dolphin: true
-      :frog: true
-      :crocodile: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :otter: true
   answer: 
 - !ruby/object:Classifier
   question: Is Snoopy one of these?
@@ -81,23 +78,13 @@ classifiers:
       :turtle: true
       :lion: true
       :horse: true
+      :pig: true
+      :chicken: true
+      :deer: true
+      :unicorn: true
   positive_solutions: !ruby/object:Set
     hash:
       :beagle: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it native to Australia?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :giraffe: true
-      :snake: true
-      :spider: true
-      :turtle: true
-      :lion: true
-      :horse: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :kangaroo: true
   answer: 
 - !ruby/object:Classifier
   question: Does it have a long neck?
@@ -107,10 +94,15 @@ classifiers:
       :spider: true
       :turtle: true
       :lion: true
+      :pig: true
   positive_solutions: !ruby/object:Set
     hash:
       :giraffe: true
       :horse: true
+      :kangaroo: true
+      :chicken: true
+      :deer: true
+      :unicorn: true
   answer: 
 - !ruby/object:Classifier
   question: Is it a water fowl?
@@ -125,9 +117,11 @@ classifiers:
     hash:
       :frog: true
       :crocodile: true
+      :chicken: true
   positive_solutions: !ruby/object:Set
     hash:
       :dolphin: true
+      :pig: true
   answer: 
 - !ruby/object:Classifier
   question: Is it a reptile?
@@ -135,6 +129,8 @@ classifiers:
     hash:
       :turtle: true
       :lion: true
+      :pig: true
+      :chicken: true
   positive_solutions: !ruby/object:Set
     hash:
       :snake: true
@@ -144,6 +140,7 @@ classifiers:
   negative_solutions: !ruby/object:Set
     hash:
       :lion: true
+      :pig: true
   positive_solutions: !ruby/object:Set
     hash:
       :spider: true
@@ -153,6 +150,7 @@ classifiers:
   negative_solutions: !ruby/object:Set
     hash:
       :lion: true
+      :pig: true
   positive_solutions: !ruby/object:Set
     hash:
       :turtle: true
@@ -160,7 +158,9 @@ classifiers:
 - !ruby/object:Classifier
   question: Is it an amphibian?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :pig: true
+      :chicken: true
   positive_solutions: !ruby/object:Set
     hash:
       :frog: true
@@ -169,17 +169,29 @@ classifiers:
 - !ruby/object:Classifier
   question: Does it have a mane?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :pig: true
+      :chicken: true
   positive_solutions: !ruby/object:Set
     hash:
       :lion: true
+      :horse: true
+      :giraffe: true
+      :unicorn: true
+  answer: 
 - !ruby/object:Classifier
   question: Does it have hooves?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :kangaroo: true
+      :chicken: true
   positive_solutions: !ruby/object:Set
     hash:
       :horse: true
+      :giraffe: true
+      :deer: true
+      :unicorn: true
+  answer: 
 - !ruby/object:Classifier
   question: Is it a predator?
   negative_solutions: !ruby/object:Set
@@ -187,6 +199,40 @@ classifiers:
   positive_solutions: !ruby/object:Set
     hash:
       :crocodile: true
+- !ruby/object:Classifier
+  question: Is it a farm animal?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :chicken: true
+- !ruby/object:Classifier
+  question: Is it a ruminant?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :horse: true
+      :unicorn: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :giraffe: true
+      :deer: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is it responsible for a large number of human deaths?
+  negative_solutions: !ruby/object:Set
+    hash:
+      :unicorn: true
+  positive_solutions: !ruby/object:Set
+    hash:
+      :deer: true
+  answer: 
+- !ruby/object:Classifier
+  question: Is it a mythical animal?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :unicorn: true
 animals: !ruby/object:Set
   hash:
     :hummingbird: true
@@ -205,4 +251,8 @@ animals: !ruby/object:Set
     :lion: true
     :horse: true
     :crocodile: true
+    :pig: true
+    :chicken: true
+    :deer: true
+    :unicorn: true
 user_animal: 

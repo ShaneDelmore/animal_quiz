@@ -2,58 +2,47 @@ require 'set'
 require_relative 'classifier'
 require_relative 'animal_finder'
 
-def penguin
-  # Animal.new('penguin')
-  'penguin'.to_sym
-end
-
-def hummingbird
-  # Animal.new('hummingbird')
-  'hummingbird'.to_sym
-end
-
-def salmon
-  # Animal.new('salmon')
-  'salmon'.to_sym
-end
-
-def can_it_fly
-  result = Classifier.new('Can it fly?')
-  result.positive_solutions << hummingbird
-  result.negative_solutions << salmon
-  result
-end
-
-def can_it_swim
-  result = Classifier.new('Can it swim?')
-  result.positive_solutions << salmon
-  result.negative_solutions << hummingbird
-  result
-end
-
-def does_it_have_scales
-  result = Classifier.new('Does it have scales?')
-  result.positive_solutions << salmon
-  result
-end
-
-def empty_finder
-  AnimalFinder.new()
-end
-
+# def penguin
+#   # Animal.new('penguin')
+#   'penguin'.to_sym
+# end
+# 
+# def hummingbird
+#   # Animal.new('hummingbird')
+#   'hummingbird'.to_sym
+# end
+# 
+# def salmon
+#   # Animal.new('salmon')
+#   'salmon'.to_sym
+# end
+# 
+# def can_it_fly
+#   result = Classifier.new('Can it fly?')
+#   result.positive_solutions << hummingbird
+#   result.negative_solutions << salmon
+#   result
+# end
+# 
+# def can_it_swim
+#   result = Classifier.new('Can it swim?')
+#   result.positive_solutions << salmon
+#   result.negative_solutions << hummingbird
+#   result
+# end
+# 
+# def does_it_have_scales
+#   result = Classifier.new('Does it have scales?')
+#   result.positive_solutions << salmon
+#   result
+# end
+# 
+# def empty_finder
+#   AnimalFinder.new()
+# end
+# 
 def empty_question(question)
   Classifier.new(question)
-end
-
-def populated_finder
-  result = empty_finder
-  result.classifiers << can_it_swim
-  result.classifiers << can_it_fly
-  result.classifiers << does_it_have_scales
-  result.animals << hummingbird
-  result.animals << salmon
-  result.animals << penguin
-  result
 end
 
 # finder = populated_finder
@@ -78,14 +67,20 @@ def get_input_to_bool
 end
 
 def ask(question)
-  puts question
+  tell question
   get_input
 end
 
+def tell(text)
+  puts text
+end
+
 def ask_yes_no(question)
-  puts question + " (Y)es / (N)o / (Q)uit"
+  tell question + " (Y)es / (N)o / (Q)uit"
   get_input_to_bool
 end
+
+tell "Think of an animal and I will try to figure out what it is."
 
 while finder.keep_playing?
   next_question = finder.next_classifier
@@ -108,18 +103,17 @@ if finder.user_animal.nil?
   new_question = ask("Please enter a question to help me find your animal next game.")
   classifier = empty_question(new_question)
   classifier.add_solution(finder.user_animal, true)
-  finder.classifiers << classifier
+  finder.add_or_update_classifier(classifier)
+  finder.update_classifiers
 end
 
 
 
-#Add "think of an animal...
 #What about when I need more classifiers for existing animals?
 #Should I ask a user to tell me something about an animal I guessed incorrectly
 #  because it wasn't filtered out by the current questions?
 #Should I give users a way to skip a question?
 #I need to rank questions based on the number of remaining animals they will classify.
-#Handle adding the same question twice.
-#
+#Should I ask for input on questions that do not classify an existing animal?
 
 finder.save_and_reset
