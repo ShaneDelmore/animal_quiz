@@ -17,6 +17,7 @@ classifiers:
       :chicken: true
       :deer: true
       :unicorn: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :salmon: true
@@ -48,6 +49,7 @@ classifiers:
       :chicken: true
       :deer: true
       :unicorn: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :hummingbird: true
@@ -64,6 +66,8 @@ classifiers:
       :crocodile: true
       :chicken: true
       :horse: true
+      :giraffe: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :salmon: true
@@ -83,6 +87,7 @@ classifiers:
       :chicken: true
       :deer: true
       :unicorn: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :beagle: true
@@ -96,20 +101,23 @@ classifiers:
       :turtle: true
       :lion: true
       :pig: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :giraffe: true
-      :horse: true
       :kangaroo: true
       :chicken: true
       :deer: true
       :unicorn: true
+      :horse: true
   answer:
 - !ruby/object:Classifier
   question: Is it a water fowl?
   negative_solutions: !ruby/object:Set
     hash:
       :horse: true
+      :giraffe: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :swan: true
@@ -125,6 +133,9 @@ classifiers:
     hash:
       :dolphin: true
       :pig: true
+      :horse: true
+      :giraffe: true
+      :racoon: true
   answer:
 - !ruby/object:Classifier
   question: Is it a reptile?
@@ -134,6 +145,8 @@ classifiers:
       :lion: true
       :pig: true
       :chicken: true
+      :horse: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :snake: true
@@ -144,6 +157,8 @@ classifiers:
     hash:
       :lion: true
       :pig: true
+      :horse: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :spider: true
@@ -155,6 +170,7 @@ classifiers:
       :lion: true
       :pig: true
       :horse: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :turtle: true
@@ -165,6 +181,8 @@ classifiers:
     hash:
       :pig: true
       :chicken: true
+      :horse: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :frog: true
@@ -176,6 +194,7 @@ classifiers:
     hash:
       :pig: true
       :chicken: true
+      :racoon: true
   positive_solutions: !ruby/object:Set
     hash:
       :lion: true
@@ -199,14 +218,17 @@ classifiers:
 - !ruby/object:Classifier
   question: Is it a predator?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :horse: true
   positive_solutions: !ruby/object:Set
     hash:
       :crocodile: true
+  answer:
 - !ruby/object:Classifier
   question: Is it a farm animal?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :giraffe: true
   positive_solutions: !ruby/object:Set
     hash:
       :chicken: true
@@ -229,6 +251,7 @@ classifiers:
     hash:
       :unicorn: true
       :horse: true
+      :giraffe: true
   positive_solutions: !ruby/object:Set
     hash:
       :deer: true
@@ -238,6 +261,7 @@ classifiers:
   negative_solutions: !ruby/object:Set
     hash:
       :horse: true
+      :giraffe: true
   positive_solutions: !ruby/object:Set
     hash:
       :unicorn: true
@@ -253,10 +277,19 @@ classifiers:
 - !ruby/object:Classifier
   question: Do people race them?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :giraffe: true
   positive_solutions: !ruby/object:Set
     hash:
       :horse: true
+  answer:
+- !ruby/object:Classifier
+  question: Does it have stripes?
+  negative_solutions: !ruby/object:Set
+    hash: {}
+  positive_solutions: !ruby/object:Set
+    hash:
+      :racoon: true
   answer:
 animals: !ruby/object:Set
   hash:
@@ -280,5 +313,7 @@ animals: !ruby/object:Set
     :chicken: true
     :deer: true
     :unicorn: true
+    :racoon: true
 user_animal:
 ui: !ruby/object:Cui {}
+skipped_classifiers: []

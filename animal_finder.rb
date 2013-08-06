@@ -8,10 +8,11 @@ class AnimalFinder
     File.open(Dir.pwd + '/animal_finder.yaml', 'r') { |f| YAML.load(f) }
   end
   
-  attr_accessor :classifiers, :animals, :user_animal, :ui
+  attr_accessor :classifiers, :animals, :user_animal, :ui, :skipped_classifiers
 
   def initialize
     @classifiers = []
+    @skipped_classifiers = []
     @animals = Set.new
     @user_animal = nil
   end
@@ -20,6 +21,7 @@ class AnimalFinder
     save_animal
     update_classifiers
     reset_finder_state
+    self.skipped_classifiers = []
     File.open(Dir.pwd + '/animal_finder.yaml', 'w+') {|f| f.write(self.to_yaml) }
   end
 
@@ -67,8 +69,12 @@ class AnimalFinder
     classifiers.select { |classifier| !classifier.answered? }
   end
 
+  def available_classifiers
+    unanswered_classifiers.select { |classifier| !skipped_classifiers.include?(classifier)}
+  end
+
   def potential_classifiers
-    unanswered_classifiers.select do |classifier|
+    available_classifiers.select do |classifier|
       (classifier.related_items & potential_solutions).length > 0
     end
   end
@@ -104,23 +110,23 @@ class AnimalFinder
 
   def next_learning_question
     #Return the question with the fewest related items so I can learn more about it.
-    unanswered_classifiers.sort_by { |item| (item.related_items & potential_solutions).length }.first
+    available_classifiers.sort_by { |item| (item.related_items & potential_solutions).length }.first
+  end
+
+  def ask(question)
+    question.answer = ui.ask_yes_no(question.question)
+    skipped_classifiers << question if question.answer.nil?
   end
 
   def play
     ui.tell "Think of an animal and I will try to figure out what it is."
 
     while keep_playing?
-      next_question = next_classifier
-      next_question.answer = ui.ask_yes_no(next_question.question)
+      ask(next_classifier)
     end
 
     #Ask one more unrelated question to help with learning.
-    #todo
-    learning_question = next_learning_question
-    learning_question.answer = ui.ask_yes_no(learning_question.question)
-    # p learning_question
-    # add_or_update_classifier(learning_question)
+    ask(next_learning_question) if next_learning_question
 
     if potential_solutions.length == 1 
       result = ui.ask(potential_solutions.first.to_s + '?')

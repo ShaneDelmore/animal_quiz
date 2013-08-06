@@ -6,7 +6,9 @@ class Cui
   end
 
   def get_input_to_bool
-    get_input.downcase.start_with?('y')
+    input = get_input
+    return nil if input.downcase.start_with?('s')
+    input.downcase.start_with?('y')
   end
 
   def ask(question)
@@ -19,7 +21,7 @@ class Cui
   end
 
   def ask_yes_no(question)
-    tell question + " (Y)es / (N)o / (Q)uit"
+    tell question + " (Y)es / (N)o / (Q)uit / (S)kip"
     get_input_to_bool
   end
 end
