@@ -1,340 +1,4 @@
 --- !ruby/object:AnimalFinder
-classifiers:
-- !ruby/object:Classifier
-  question: Does it spend a large portion of it's life in water?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :hummingbird: true
-      :beagle: true
-      :kangaroo: true
-      :giraffe: true
-      :snake: true
-      :spider: true
-      :turtle: true
-      :lion: true
-      :horse: true
-      :pig: true
-      :chicken: true
-      :deer: true
-      :unicorn: true
-      :racoon: true
-      :dove: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :salmon: true
-      :otter: true
-      :penguin: true
-      :swan: true
-      :dolphin: true
-      :frog: true
-      :crocodile: true
-      :duck: true
-  answer: 
-- !ruby/object:Classifier
-  question: Can it fly?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :salmon: true
-      :otter: true
-      :penguin: true
-      :kangaroo: true
-      :giraffe: true
-      :dolphin: true
-      :snake: true
-      :spider: true
-      :turtle: true
-      :frog: true
-      :lion: true
-      :horse: true
-      :crocodile: true
-      :pig: true
-      :chicken: true
-      :deer: true
-      :unicorn: true
-      :racoon: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :hummingbird: true
-      :swan: true
-      :dove: true
-      :duck: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have scales?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :otter: true
-      :penguin: true
-      :dolphin: true
-      :frog: true
-      :crocodile: true
-      :chicken: true
-      :horse: true
-      :giraffe: true
-      :racoon: true
-      :hummingbird: true
-      :swan: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :salmon: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is Snoopy one of these?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :kangaroo: true
-      :giraffe: true
-      :snake: true
-      :spider: true
-      :turtle: true
-      :lion: true
-      :horse: true
-      :pig: true
-      :chicken: true
-      :deer: true
-      :unicorn: true
-      :racoon: true
-      :hummingbird: true
-      :dove: true
-      :swan: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :beagle: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have a long neck?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :snake: true
-      :spider: true
-      :turtle: true
-      :lion: true
-      :pig: true
-      :racoon: true
-      :hummingbird: true
-      :duck: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :giraffe: true
-      :kangaroo: true
-      :chicken: true
-      :deer: true
-      :unicorn: true
-      :horse: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a water fowl?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :horse: true
-      :giraffe: true
-      :racoon: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :swan: true
-      :duck: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a mammal?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :frog: true
-      :crocodile: true
-      :chicken: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :dolphin: true
-      :pig: true
-      :horse: true
-      :giraffe: true
-      :racoon: true
-      :elephant: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a reptile?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :turtle: true
-      :lion: true
-      :pig: true
-      :chicken: true
-      :horse: true
-      :racoon: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :snake: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have 8 legs?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :lion: true
-      :pig: true
-      :horse: true
-      :racoon: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :spider: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have a shell?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :lion: true
-      :pig: true
-      :horse: true
-      :racoon: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :turtle: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it an amphibian?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :pig: true
-      :chicken: true
-      :horse: true
-      :racoon: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :frog: true
-      :crocodile: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have a mane?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :pig: true
-      :chicken: true
-      :racoon: true
-      :dove: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :lion: true
-      :horse: true
-      :giraffe: true
-      :unicorn: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have hooves?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :kangaroo: true
-      :chicken: true
-      :swan: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :giraffe: true
-      :deer: true
-      :unicorn: true
-      :horse: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a predator?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :horse: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :crocodile: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a farm animal?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :giraffe: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :chicken: true
-      :horse: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a ruminant?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :horse: true
-      :unicorn: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :giraffe: true
-      :deer: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it responsible for a large number of human deaths?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :unicorn: true
-      :horse: true
-      :giraffe: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :deer: true
-  answer: 
-- !ruby/object:Classifier
-  question: Is it a mythical animal?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :horse: true
-      :giraffe: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :unicorn: true
-  answer: 
-- !ruby/object:Classifier
-  question: Do people frequently ride it?
-  negative_solutions: !ruby/object:Set
-    hash: {}
-  positive_solutions: !ruby/object:Set
-    hash:
-      :horse: true
-  answer: 
-- !ruby/object:Classifier
-  question: Do people race them?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :giraffe: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :horse: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have stripes?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :dove: true
-      :elephant: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :racoon: true
-  answer: 
-- !ruby/object:Classifier
-  question: Do magicians use them in their acts?
-  negative_solutions: !ruby/object:Set
-    hash:
-      :swan: true
-  positive_solutions: !ruby/object:Set
-    hash:
-      :dove: true
-  answer: 
-- !ruby/object:Classifier
-  question: Does it have a trunk?
-  negative_solutions: !ruby/object:Set
-    hash: {}
-  positive_solutions: !ruby/object:Set
-    hash:
-      :elephant: true
-  answer: 
 animals: !ruby/object:Set
   hash:
     :hummingbird: true
@@ -361,6 +25,349 @@ animals: !ruby/object:Set
     :dove: true
     :duck: true
     :elephant: true
-user_animal: 
+user_animal:
 ui: !ruby/object:Cui {}
-skipped_classifiers: []
+classifier: !ruby/object:Classifier
+  skipped_constraints: []
+  constraints:
+  - !ruby/object:Constraint
+    question: Does it spend a large portion of it's life in water?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :hummingbird: true
+        :beagle: true
+        :kangaroo: true
+        :giraffe: true
+        :snake: true
+        :spider: true
+        :turtle: true
+        :lion: true
+        :horse: true
+        :pig: true
+        :chicken: true
+        :deer: true
+        :unicorn: true
+        :racoon: true
+        :dove: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :salmon: true
+        :otter: true
+        :penguin: true
+        :swan: true
+        :dolphin: true
+        :frog: true
+        :crocodile: true
+        :duck: true
+    answer:
+  - !ruby/object:Constraint
+    question: Can it fly?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :salmon: true
+        :otter: true
+        :penguin: true
+        :kangaroo: true
+        :giraffe: true
+        :dolphin: true
+        :snake: true
+        :spider: true
+        :turtle: true
+        :frog: true
+        :lion: true
+        :horse: true
+        :crocodile: true
+        :pig: true
+        :chicken: true
+        :deer: true
+        :unicorn: true
+        :racoon: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :hummingbird: true
+        :swan: true
+        :dove: true
+        :duck: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have scales?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :otter: true
+        :penguin: true
+        :dolphin: true
+        :frog: true
+        :crocodile: true
+        :chicken: true
+        :horse: true
+        :giraffe: true
+        :racoon: true
+        :hummingbird: true
+        :swan: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :salmon: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is Snoopy one of these?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :kangaroo: true
+        :giraffe: true
+        :snake: true
+        :spider: true
+        :turtle: true
+        :lion: true
+        :horse: true
+        :pig: true
+        :chicken: true
+        :deer: true
+        :unicorn: true
+        :racoon: true
+        :hummingbird: true
+        :dove: true
+        :swan: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :beagle: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have a long neck?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :snake: true
+        :spider: true
+        :turtle: true
+        :lion: true
+        :pig: true
+        :racoon: true
+        :hummingbird: true
+        :duck: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :giraffe: true
+        :kangaroo: true
+        :chicken: true
+        :deer: true
+        :unicorn: true
+        :horse: true
+        :swan: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a water fowl?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :horse: true
+        :giraffe: true
+        :racoon: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :swan: true
+        :duck: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a mammal?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :frog: true
+        :crocodile: true
+        :chicken: true
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :dolphin: true
+        :pig: true
+        :horse: true
+        :giraffe: true
+        :racoon: true
+        :elephant: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a reptile?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :turtle: true
+        :lion: true
+        :pig: true
+        :chicken: true
+        :horse: true
+        :racoon: true
+        :elephant: true
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :snake: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have 8 legs?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :lion: true
+        :pig: true
+        :horse: true
+        :racoon: true
+        :elephant: true
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :spider: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have a shell?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :lion: true
+        :pig: true
+        :horse: true
+        :racoon: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :turtle: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it an amphibian?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :pig: true
+        :chicken: true
+        :horse: true
+        :racoon: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :frog: true
+        :crocodile: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have a mane?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :pig: true
+        :chicken: true
+        :racoon: true
+        :dove: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :lion: true
+        :horse: true
+        :giraffe: true
+        :unicorn: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have hooves?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :kangaroo: true
+        :chicken: true
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :giraffe: true
+        :deer: true
+        :unicorn: true
+        :horse: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a predator?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :horse: true
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :crocodile: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a farm animal?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :giraffe: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :chicken: true
+        :horse: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a ruminant?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :horse: true
+        :unicorn: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :giraffe: true
+        :deer: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it responsible for a large number of human deaths?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :unicorn: true
+        :horse: true
+        :giraffe: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :deer: true
+    answer:
+  - !ruby/object:Constraint
+    question: Is it a mythical animal?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :horse: true
+        :giraffe: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :unicorn: true
+    answer:
+  - !ruby/object:Constraint
+    question: Do people frequently ride it?
+    negative_solutions: !ruby/object:Set
+      hash: {}
+    positive_solutions: !ruby/object:Set
+      hash:
+        :horse: true
+    answer:
+  - !ruby/object:Constraint
+    question: Do people race them?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :giraffe: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :horse: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have stripes?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :dove: true
+        :elephant: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :racoon: true
+    answer:
+  - !ruby/object:Constraint
+    question: Do magicians use them in their acts?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :dove: true
+    answer:
+  - !ruby/object:Constraint
+    question: Does it have a trunk?
+    negative_solutions: !ruby/object:Set
+      hash:
+        :swan: true
+    positive_solutions: !ruby/object:Set
+      hash:
+        :elephant: true
+    answer:

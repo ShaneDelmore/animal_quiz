@@ -1,47 +1,23 @@
 require 'set'
+require_relative 'constraint'
 
 class Classifier
-  attr_reader :question
-  attr_accessor :answer
-  attr_accessor :negative_solutions, :positive_solutions
+  attr_accessor :constraints, :skipped_constraints
 
-  def initialize(question)
-    @question = question
-    @negative_solutions = Set.new()
-    @positive_solutions = Set.new()
+  def initialize(constraints)
+    @constraints = constraints
+    @skipped_constraints = []
   end
 
-  def add_solution(item, matched)
-    if matched 
-      positive_solutions << item
-      negative_solutions.delete(item)
-    else
-      negative_solutions << item
-      positive_solutions.delete(item)
-    end
+  def answered_constraints
+    constraints.select { |constraint| constraint.answered? }
   end
 
-  #this feels awkward, do I need a new answered question class?
-  def excluded_items
-    return Set.new() if !answered?
-    if answer
-      negative_solutions
-    else
-      positive_solutions
-    end
+  def unanswered_constraints
+    constraints.select { |constraint| !constraint.answered? }
   end
 
-  def related_items
-    negative_solutions | positive_solutions
-  end
-
-  def answered?
-    !answer.nil?
-  end
-
-  def ==(other)
-    question == other.question
+  def available_constraints
+    unanswered_constraints.select { |constraint| !skipped_constraints.include?(constraint)}
   end
 end
-
-

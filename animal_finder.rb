@@ -1,7 +1,9 @@
 require 'yaml'
 require_relative 'animal'
+require_relative 'constraint'
 require_relative 'classifier'
 require 'set'
+require_relative 'cui'
 #TODO move classifier collection into a new class.
 #Should I also inject animals into it?
 #Yes, the collection should not contain animals with no classifiers
@@ -19,20 +21,26 @@ class AnimalFinder
     File.open(Dir.pwd + '/animal_finder.yaml', 'r') { |f| YAML.load(f) }
   end
   
-  attr_accessor :classifiers, :animals, :user_animal, :ui, :skipped_classifiers
+  attr_accessor :classifier, :animals, :user_animal, :ui, :skipped_constraints
+
+  def constraints
+    classifier.constraints
+  end
+
+  def skipped_constraints
+    classifier.skipped_constraints
+  end
 
   def initialize
-    @classifiers = []
-    @skipped_classifiers = []
     @animals = Set.new
     @user_animal = nil
   end
 
   def save_and_reset
     save_animal
-    update_classifiers
+    update_constraints
     reset_finder_state
-    self.skipped_classifiers = []
+    self.skipped_constraints = []
     File.open(Dir.pwd + '/animal_finder.yaml', 'w+') {|f| f.write(self.to_yaml) }
   end
 
@@ -40,36 +48,36 @@ class AnimalFinder
     animals << user_animal if user_animal
   end
 
-  def find_classifier(classifier)
-    classifiers.find { |i| i.question == classifier.question } 
+  def find_constraint(constraint)
+    constraints.find { |i| i.question == constraint.question } 
   end
 
-  def add_or_find_classifier(classifier)
-    classifiers << classifier unless find_classifier(classifier)
-    find_classifier(classifier)
+  def add_or_find_constraint(constraint)
+    constraints << constraint unless find_constraint(constraint)
+    find_constraint(constraint)
   end
 
-  def add_or_update_classifier(classifier)
-    add_or_find_classifier(classifier).answer = true
+  def add_or_update_constraint(constraint)
+    add_or_find_constraint(constraint).answer = true
   end
 
-  def update_classifiers
+  def update_constraints
     if solved?
-      answered_classifiers.each do |classifier|
-        classifier.add_solution(user_animal, classifier.answer)
+      answered_constraints.each do |constraint|
+        constraint.add_solution(user_animal, constraint.answer)
       end
     end
   end
 
   def reset_finder_state
     @user_animal = nil
-    answered_classifiers.each do |classifier|
-      classifier.answer = nil
+    answered_constraints.each do |constraint|
+      constraint.answer = nil
     end
   end
 
   def excluded_items
-    answered_classifiers.reduce(Set.new) do |acc, item| 
+    answered_constraints.reduce(Set.new) do |acc, item| 
       acc.merge(item.excluded_items)
     end
   end
@@ -78,56 +86,56 @@ class AnimalFinder
     animals - excluded_items
   end
 
-  def answered_classifiers
-    classifiers.select { |classifier| classifier.answered? }
+  def answered_constraints
+    classifier.answered_constraints
   end
 
-  def unanswered_classifiers
-    classifiers.select { |classifier| !classifier.answered? }
+  def unanswered_constraints
+    classifier.unanswered_constraints
   end
 
-  def available_classifiers
-    unanswered_classifiers.select { |classifier| !skipped_classifiers.include?(classifier)}
+  def available_constraints
+    classifier.available_constraints
   end
 
-  def potential_classifiers
-    available_classifiers.select do |classifier|
-      (classifier.related_items & potential_solutions).length > 0
+  def potential_constraints
+    available_constraints.select do |constraint|
+      (constraint.related_items & potential_solutions).length > 0
     end
   end
 
-  def sorted_potential_classifiers
-    potential_classifiers.sort_by do |classifier|
+  def sorted_potential_constraints
+    potential_constraints.sort_by do |constraint|
       #sort by minimum exclusions, then maximum exclusions.
-      [min_exclusions(classifier), max_exclusions(classifier)]
+      [min_exclusions(constraint), max_exclusions(constraint)]
     end
   end
 
-  def min_exclusions(classifier)
-    [(classifier.negative_solutions & potential_solutions).length, 
-     (classifier.positive_solutions & potential_solutions).length].min
+  def min_exclusions(constraint)
+    [(constraint.negative_solutions & potential_solutions).length, 
+     (constraint.positive_solutions & potential_solutions).length].min
   end
 
-  def max_exclusions(classifier)
-    [(classifier.negative_solutions & potential_solutions).length, 
-     (classifier.positive_solutions & potential_solutions).length].max
+  def max_exclusions(constraint)
+    [(constraint.negative_solutions & potential_solutions).length, 
+     (constraint.positive_solutions & potential_solutions).length].max
   end
 
-  def next_classifier
-    sorted_potential_classifiers.last
+  def next_constraint
+    sorted_potential_constraints.last
   end
 
   def keep_playing?
-    next_classifier && (potential_solutions.length > 1)
+    next_constraint && (potential_solutions.length > 1)
   end
 
   def empty_question(question)
-    Classifier.new(question)
+    Constraint.new(question)
   end
 
   def next_learning_question
     #Return the question with the fewest related items so I can learn more about it.
-    available_classifiers.sort_by { |item| (item.related_items & potential_solutions).length }.first
+    available_constraints.sort_by { |item| (item.related_items & potential_solutions).length }.first
   end
 
   def tell(statement)
@@ -142,22 +150,22 @@ class AnimalFinder
     ui.ask_yes_no(question)
   end
 
-  def get_answer(classifier)
-    return if classifier.nil?
-    classifier.answer = ask_yes_no(classifier.question)
-    skipped_classifiers << classifier if classifier.answer.nil?
+  def get_answer(constraint)
+    return if constraint.nil?
+    constraint.answer = ask_yes_no(constraint.question)
+    skipped_constraints << constraint if constraint.answer.nil?
   end
 
   def ask_clarifying_questions
-    get_answer(next_classifier)
+    get_answer(next_constraint)
     ask_clarifying_questions if keep_playing?
   end
 
   def get_new_question
       new_question = ask("Please enter a question to help me find your animal next game.")
-      classifier = empty_question(new_question)
-      classifier.add_solution(user_animal, true)
-      add_or_update_classifier(classifier)
+      constraint = empty_question(new_question)
+      constraint.add_solution(user_animal, true)
+      add_or_update_constraint(constraint)
   end
 
   def multiple_possibilities?
