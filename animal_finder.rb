@@ -2,6 +2,17 @@ require 'yaml'
 require_relative 'animal'
 require_relative 'classifier'
 require 'set'
+#TODO move classifier collection into a new class.
+#Should I also inject animals into it?
+#Yes, the collection should not contain animals with no classifiers
+#and should not contain classifiers of animals that it does not know about.
+#Do I even need a distinct list of animals, or should I just pull it from 
+#the classifiers initially?
+#Keep the save and load in the animal finder, this would allow me to make
+#different finders.
+#Gemify the classifier.
+#What is a better name for it?
+#Class names should be Classifier which has a list of Constraint objects.
 
 class AnimalFinder
   def self.load
@@ -29,17 +40,21 @@ class AnimalFinder
     animals << user_animal if user_animal
   end
 
+  def find_classifier(classifier)
+    classifiers.find { |i| i.question == classifier.question } 
+  end
+
+  def add_or_find_classifier(classifier)
+    classifiers << classifier unless find_classifier(classifier)
+    find_classifier(classifier)
+  end
+
   def add_or_update_classifier(classifier)
-    existing_question = classifiers.find { |i| i.question == classifier.question } 
-    if existing_question
-      existing_question.answer = true
-    else
-      classifiers << classifier
-    end
+    add_or_find_classifier(classifier).answer = true
   end
 
   def update_classifiers
-    if user_animal
+    if solved?
       answered_classifiers.each do |classifier|
         classifier.add_solution(user_animal, classifier.answer)
       end
@@ -53,12 +68,14 @@ class AnimalFinder
     end
   end
 
-  def potential_solutions
-    potential_solutions = animals
-    classifiers.each do |classifier|
-      potential_solutions = potential_solutions - classifier.excluded_items
+  def excluded_items
+    answered_classifiers.reduce(Set.new) do |acc, item| 
+      acc.merge(item.excluded_items)
     end
-    potential_solutions
+  end
+
+  def potential_solutions
+    animals - excluded_items
   end
 
   def answered_classifiers
@@ -113,39 +130,69 @@ class AnimalFinder
     available_classifiers.sort_by { |item| (item.related_items & potential_solutions).length }.first
   end
 
-  def ask(question)
-    question.answer = ui.ask_yes_no(question.question)
-    skipped_classifiers << question if question.answer.nil?
+  def tell(statement)
+    ui.tell(statement)
   end
 
-  def play
-    ui.tell "Think of an animal and I will try to figure out what it is."
+  def ask(question)
+    ui.ask(question)
+  end
 
-    while keep_playing?
-      ask(next_classifier)
-    end
+  def ask_yes_no(question)
+    ui.ask_yes_no(question)
+  end
 
-    #Ask one more unrelated question to help with learning.
-    ask(next_learning_question) if next_learning_question
+  def get_answer(classifier)
+    return if classifier.nil?
+    classifier.answer = ask_yes_no(classifier.question)
+    skipped_classifiers << classifier if classifier.answer.nil?
+  end
 
-    if potential_solutions.length == 1 
-      result = ui.ask(potential_solutions.first.to_s + '?')
-      self.user_animal = potential_solutions.first if result == 'y'
-    end
+  def ask_clarifying_questions
+    get_answer(next_classifier)
+    ask_clarifying_questions if keep_playing?
+  end
 
-    if user_animal.nil?
-      if potential_solutions.length > 1
-        ui.tell "I think it might be one of these but can't be sure:"
-        potential_solutions.each do |solution|
-          ui.tell solution.to_s
-        end
-      end
-      self.user_animal = ui.ask("What was the animal you were thinking of?").to_sym
-      new_question = ui.ask("Please enter a question to help me find your animal next game.")
+  def get_new_question
+      new_question = ask("Please enter a question to help me find your animal next game.")
       classifier = empty_question(new_question)
       classifier.add_solution(user_animal, true)
       add_or_update_classifier(classifier)
-    end
-    # update_classifiers
+  end
+
+  def multiple_possibilities?
+    potential_solutions.length > 1
+  end
+
+  def show_potential_solutions
+    tell "I thought it might be one of these but could not decide:"
+    potential_solutions.each { |solution| tell solution.to_s }
+  end
+
+  def try_best_solution
+    result = ask_yes_no(potential_solutions.first.to_s + '?')
+    self.user_animal = potential_solutions.first if result
+  end
+
+  def solved?
+    !user_animal.nil?
+  end
+
+  def ask_for_help
+    show_potential_solutions if multiple_possibilities?
+    self.user_animal = ask("What was the animal you were thinking of?").to_sym
+    get_new_question
+  end
+
+  def play
+    tell "Think of an animal and I will try to figure out what it is."
+    ask_clarifying_questions
+
+    #Ask one more unrelated question to help with learning.
+    get_answer(next_learning_question) 
+
+    try_best_solution unless potential_solutions.empty?
+    ask_for_help unless solved?
   end
 end
+

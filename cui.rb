@@ -1,7 +1,8 @@
+    #todo, fix up get_answer to make sure I am not quitting on quail.
 class Cui
   def get_input
     answer = gets.chomp
-    exit if answer.downcase.start_with?('q')
+    exit if ['quit', 'q'].include?(answer.downcase)
     answer
   end
 
