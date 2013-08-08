@@ -300,6 +300,7 @@ classifier: !ruby/object:Classifier
       hash:
         :horse: true
         :giraffe: true
+        :swan: true
     positive_solutions: !ruby/object:Set
       hash:
         :unicorn: true
@@ -307,7 +308,8 @@ classifier: !ruby/object:Classifier
   - !ruby/object:Constraint
     question: Do people frequently ride it?
     negative_solutions: !ruby/object:Set
-      hash: {}
+      hash:
+        :swan: true
     positive_solutions: !ruby/object:Set
       hash:
         :horse: true
@@ -350,4 +352,6 @@ classifier: !ruby/object:Classifier
         :elephant: true
     answer: 
   correct_solution: 
-ui: !ruby/object:Cui {}
+ui: !ruby/object:Gui
+  app: !ruby/object:Fox::FXApp {}
+  question: swan? (Y)es / (N)o / (Q)uit / (S)kip

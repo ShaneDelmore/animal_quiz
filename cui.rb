@@ -1,4 +1,3 @@
-    #todo, fix up get_answer to make sure I am not quitting on quail.
 class Cui
   def get_input
     answer = gets.chomp

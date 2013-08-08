@@ -4,6 +4,7 @@ GEM
     coderay (1.0.9)
     ffi (1.9.0)
     formatador (0.2.4)
+    fxruby (1.6.28)
     guard (1.8.2)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -36,5 +37,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fxruby
   guard
   guard-minitest

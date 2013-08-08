@@ -299,6 +299,7 @@ constraints:
     hash:
       :horse: true
       :giraffe: true
+      :swan: true
   positive_solutions: !ruby/object:Set
     hash:
       :unicorn: true
@@ -306,7 +307,8 @@ constraints:
 - !ruby/object:Constraint
   question: Do people frequently ride it?
   negative_solutions: !ruby/object:Set
-    hash: {}
+    hash:
+      :swan: true
   positive_solutions: !ruby/object:Set
     hash:
       :horse: true
