@@ -5,7 +5,7 @@ class Module
   include Minitest::Spec::DSL
 end
 
-module UIAdapterTest
+module UIAdapterInterfaceTest
   it "responds to :write" do
     @adapter.must_respond_to :write
   end

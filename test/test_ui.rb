@@ -5,9 +5,7 @@ class Module
   include Minitest::Spec::DSL
 end
 
-module UITest
-  #Rework this to be only an adapter and respond to push and pull.
-  #Move logic into main UI module.
+module UIInterfaceTest
   it "responds to :tell" do
     @ui.must_respond_to :tell
   end
@@ -27,5 +25,4 @@ module UITest
   it "responds to :ask_yes_no" do
     @ui.must_respond_to :ask_yes_no
   end
-
 end
