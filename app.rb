@@ -5,8 +5,9 @@ require_relative 'cui'
 
 
 ui = Cui.new
-finder = AnimalFinder.load
-finder.ui = ui
+classifier = Classifier.load
+# finder = AnimalFinder.load
+finder = AnimalFinder.new(classifier, ui)
 finder.play
 finder.save_and_reset
 #Should I loop to allow playing more than one game?
