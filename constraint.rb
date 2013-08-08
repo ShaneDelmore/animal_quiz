@@ -21,22 +21,26 @@ class Constraint
     end
   end
 
-  #this feels awkward, do I need a new answered question class?
   def excluded_items
-    return Set.new() if !answered?
-    if answer
-      negative_solutions
-    else
-      positive_solutions
-    end
+    return negative_solutions if answered_yes?
+    return positive_solutions if answered_no?
+    Set.new
   end
 
   def related_items
-    negative_solutions | positive_solutions
+    negative_solutions + positive_solutions
   end
 
   def answered?
     !answer.nil?
+  end
+
+  def answered_yes?
+    answer
+  end
+
+  def answered_no?
+    answer == false
   end
 
   def ==(other)

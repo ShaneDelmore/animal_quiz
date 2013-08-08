@@ -1,8 +1,8 @@
 require 'forwardable'
 require 'yaml'
 require 'set'
-require_relative 'classifier'
-require_relative 'cui'
+# require_relative 'classifier'
+# require_relative 'cui'
 
 class AnimalFinder
   extend Forwardable
@@ -17,7 +17,9 @@ class AnimalFinder
     :update_constraints,
     :reset_classifier_state,
     :next_constraint,
-    :solved?
+    :solved?,
+    :next_learning_question,
+    :add_positive_constraint
 
   def_delegators :@ui, :tell,
     :ask,
@@ -25,10 +27,6 @@ class AnimalFinder
 
   attr_accessor :classifier, :ui 
 
-  # def self.load
-  #   File.open(Dir.pwd + '/animal_finder.yaml', 'r') { |f| YAML.load(f) }
-  # end
-  
   def initialize(classifier, ui)
     @classifier = classifier
     @ui = ui
@@ -38,7 +36,7 @@ class AnimalFinder
     update_constraints
     reset_classifier_state
     classifier.save
-    File.open(Dir.pwd + '/animal_finder.yaml', 'w+') {|f| f.write(self.to_yaml) }
+    # File.open(Dir.pwd + '/animal_finder.yaml', 'w+') {|f| f.write(self.to_yaml) }
   end
 
   def keep_playing?
@@ -47,10 +45,6 @@ class AnimalFinder
 
   def empty_question(question)
     Constraint.new(question)
-  end
-
-  def next_learning_question
-    classifier.next_learning_question
   end
 
   def get_answer(constraint)
@@ -66,9 +60,7 @@ class AnimalFinder
 
   def get_new_question
       new_question = ask("Please enter a question to help me find your animal next game.")
-      constraint = empty_question(new_question)
-      constraint.add_solution(classifier.correct_solution, true)
-      add_or_update_constraint(constraint)
+      add_positive_constraint(new_question)
   end
 
   def multiple_possibilities?

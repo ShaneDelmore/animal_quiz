@@ -1,12 +1,12 @@
 require 'minitest'
-require_relative '../cui.rb'
 require_relative 'test_ui.rb'
+require_relative '../ui_text_adapter.rb'
 
-describe "UI" do
-  include UITest
+describe "UITextAdapter" do
+  include UIAdapterTest
 
   before do
-    @ui = Cui.new
+    @adapter = UITextAdapter.new
   end
 
   #I need to make a UI module and a UI adapter module

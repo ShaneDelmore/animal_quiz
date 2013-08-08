@@ -110,7 +110,8 @@ class Classifier
     find_constraint(constraint)
   end
 
-  def add_or_update_constraint(constraint)
-    add_or_find_constraint(constraint).answer = true
+  def add_positive_constraint(question)
+    constraint = add_or_find_constraint(Constraint.new(question))
+    constraint.add_solution(correct_solution, true)
   end
 end
