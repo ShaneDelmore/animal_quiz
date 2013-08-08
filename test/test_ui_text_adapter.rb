@@ -1,9 +1,9 @@
 require 'minitest'
-require_relative 'test_ui.rb'
+require_relative 'test_ui_adapter.rb'
 require_relative '../ui_text_adapter.rb'
 
 describe "UITextAdapter" do
-  include UIAdapterTest
+  include UIAdapterInterfaceTest
 
   before do
     @adapter = UITextAdapter.new

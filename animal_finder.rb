@@ -36,7 +36,6 @@ class AnimalFinder
     update_constraints
     reset_classifier_state
     classifier.save
-    # File.open(Dir.pwd + '/animal_finder.yaml', 'w+') {|f| f.write(self.to_yaml) }
   end
 
   def keep_playing?

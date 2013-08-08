@@ -31,7 +31,6 @@ constraints:
       :frog: true
       :crocodile: true
       :duck: true
-      :fake: true
   answer:
 - !ruby/object:Constraint
   question: Can it fly?
@@ -62,7 +61,6 @@ constraints:
       :swan: true
       :dove: true
       :duck: true
-      :fake: true
   answer:
 - !ruby/object:Constraint
   question: Does it have scales?
@@ -130,7 +128,6 @@ constraints:
       :unicorn: true
       :horse: true
       :swan: true
-      :fake: true
   answer:
 - !ruby/object:Constraint
   question: Is it a water fowl?
@@ -321,7 +318,6 @@ constraints:
   negative_solutions: !ruby/object:Set
     hash:
       :giraffe: true
-      :fake: true
   positive_solutions: !ruby/object:Set
     hash:
       :horse: true
