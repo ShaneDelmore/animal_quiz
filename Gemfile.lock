@@ -1,7 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bogus (0.1.4)
+      dependor (>= 0.0.4)
     coderay (1.0.9)
+    dependor (0.0.6)
     ffi (1.9.0)
     formatador (0.2.4)
     fxruby (1.6.28)
@@ -37,6 +40,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bogus
   fxruby
   guard
   guard-minitest
