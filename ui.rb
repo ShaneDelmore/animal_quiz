@@ -30,8 +30,11 @@ class UI
   end
 
   def ask_yes_no(question)
-    question += " (Y)es / (N)o / (Q)uit / (S)kip"
-    get_input_to_bool(question)
+    get_input_to_bool(append_option_text(question))
+  end
+
+  def append_option_text(text)
+    text + " (Y)es / (N)o / (Q)uit / (S)kip"
   end
 end
 

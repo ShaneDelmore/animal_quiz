@@ -6,10 +6,6 @@ def mock_ui_adapter
   MiniTest::Mock.new
 end
 
-def question_with_options(question)
-  question += " (Y)es / (N)o / (Q)uit / (S)kip"
-end
-
 describe UI do
   include UIInterfaceTest
   
@@ -34,21 +30,21 @@ describe UI do
 
   it "will return true if the user answers yes" do
     question = "Huh?"
-    @adapter.expect :read, 'Yes', [question_with_options(question)]
+    @adapter.expect :read, 'Yes', [@ui.append_option_text(question)]
     @ui.ask_yes_no(question).must_equal true
     @adapter.verify
   end
 
   it "will return false if the user answers no" do
     question = "Huh?"
-    @adapter.expect :read, 'No', [question_with_options(question)]
+    @adapter.expect :read, 'No', [@ui.append_option_text(question)]
     @ui.ask_yes_no(question).must_equal false
     @adapter.verify
   end
 
   it "will return nil if the user answers skip" do
     question = "Huh?"
-    @adapter.expect :read, 'Skip', [question_with_options(question)]
+    @adapter.expect :read, 'Skip', [@ui.append_option_text(question)]
     @ui.ask_yes_no(question).must_be_nil
     @adapter.verify
   end
