@@ -5,19 +5,23 @@ class UI
     @adapter = ui_adapter
   end
 
+  def quit
+    exit
+  end
+
   def tell(text)
     adapter.write(text)
   end
 
   def get_input(prompt)
     answer = adapter.read(prompt)
-    exit if ['quit', 'q'].include?(answer.downcase)
+    quit if ['quit', 'q'].include?(answer.downcase)
     answer
   end
 
   def get_input_to_bool(prompt)
     input = get_input(prompt)
-    return nil if input.downcase.start_with?('s')
+    return nil if ['skip', 's'].include?(input.downcase)
     input.downcase.start_with?('y')
   end
 
