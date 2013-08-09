@@ -3,8 +3,6 @@ require_relative '../classifier.rb'
 require_relative '../animal_finder.rb'
 #TODO need to make mock ui, test it, then fix up these tests.
 #move classifier tests into classifier and add game tests here.
-# require_relative '../cui.rb'
-
 
 def mock_ui
   MiniTest::Mock.new
@@ -26,7 +24,6 @@ end
 
 def populated_finder
   result = empty_finder
-  # result.constraints << can_it_swim
   result
 end
 
