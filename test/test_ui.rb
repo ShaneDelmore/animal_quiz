@@ -4,10 +4,6 @@ require_relative '../ui.rb'
 require_relative './test_ui_interface.rb'
 require_relative '../ui_text_adapter.rb'
 
-def mock_ui_adapter
-  MiniTest::Mock.new
-end
-
 def fake_ui_adapter
   fake(:UITextAdapter, write: nil)
 end
@@ -72,3 +68,5 @@ describe UI do
     ui.must_have_received :quit, []
   end
 end
+
+

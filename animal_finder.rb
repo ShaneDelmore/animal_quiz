@@ -1,15 +1,11 @@
 require 'forwardable'
 require 'yaml'
 require 'set'
-# require_relative 'classifier'
-# require_relative 'cui'
 
 class AnimalFinder
   extend Forwardable
 
   #use delegator to delegate/alias calls to ui and classifier
-  def_delegator :@classifier, :classified_items, :animals
-
   def_delegators :@classifier, :potential_solutions, 
     :sorted_potential_constraints,
     :constraints,
