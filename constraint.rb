@@ -1,6 +1,8 @@
 require 'set'
 
 class Constraint
+  # A constraint is used to limit the possible items in a set by specifying 
+  #  items allowed by the constraint once an answer is provided.
   attr_reader :question
   attr_accessor :answer
   attr_accessor :negative_solutions, :positive_solutions

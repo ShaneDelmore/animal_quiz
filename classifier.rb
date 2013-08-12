@@ -1,7 +1,12 @@
 require 'set'
+require 'yaml'
 require_relative 'constraint'
 
 class Classifier
+  # A classifier is intended to help find a specific object in a set by 
+  #  applying constraints in succession to reduce the possible objects in the set.
+  attr_accessor :constraints, :skipped_constraints, :correct_solution
+
   def self.save_file_name
     Dir.pwd + '/animal_classifier.yaml'
   end
@@ -9,8 +14,6 @@ class Classifier
   def self.load
     File.open(save_file_name, 'r') { |f| YAML.load(f) }
   end
-
-  attr_accessor :constraints, :skipped_constraints, :correct_solution
 
   def initialize(constraints)
     @constraints = constraints
@@ -37,6 +40,10 @@ class Classifier
     update_constraints
     reset_classifier_state
     save
+  end
+
+  def skip(constraint)
+    skipped_constraints << constraint
   end
 
   def update_constraints
@@ -119,5 +126,9 @@ class Classifier
   def add_positive_constraint(question)
     constraint = add_or_find_constraint(Constraint.new(question))
     constraint.add_solution(correct_solution, true)
+  end
+
+  def empty_question(question)
+    Constraint.new(question)
   end
 end

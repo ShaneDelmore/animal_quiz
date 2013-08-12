@@ -1,22 +1,28 @@
 require 'forwardable'
-require 'yaml'
-require 'set'
 
 class AnimalFinder
+  # Animal finder will attempt to use a classifier to determine the animal the
+  #  user is thinking of, similar to 20 questions.
+  #  it requires a ui to be passed in to communicate with the user.
+  #  If the finder believes it has asked enough questions to try and guess the
+  #  users animal it will then ask one additional question for future learning purposes.
   extend Forwardable
 
   #use delegator to delegate/alias calls to ui and classifier
-  def_delegators :@classifier, :potential_solutions, 
-    :skipped_constraints,
+  def_delegators :@classifier, 
+    :add_positive_constraint,
+    :empty_question,
     :next_constraint,
-    :solved?,
     :next_learning_question,
+    :potential_solutions, 
     :save_and_reset,
-    :add_positive_constraint
+    :skip,
+    :solved?
 
-  def_delegators :@ui, :tell,
+  def_delegators :@ui,
     :ask,
-    :ask_yes_no
+    :ask_yes_no,
+    :tell
 
   attr_reader :classifier, :ui 
 
@@ -28,7 +34,6 @@ class AnimalFinder
   def play
     tell "Think of an animal and I will try to figure out what it is."
     ask_clarifying_questions
-    #Ask one more unrelated question to help with learning.
     get_answer(next_learning_question) 
     try_best_solution unless potential_solutions.empty?
     ask_for_help unless solved?
@@ -42,15 +47,11 @@ class AnimalFinder
   def get_answer(constraint)
     return if constraint.nil?
     constraint.answer = ask_yes_no(constraint.question)
-    classifier.skipped_constraints << constraint if constraint.answer.nil?
+    skip(constraint) if constraint.answer.nil?
   end
 
   def keep_playing?
     next_constraint && (potential_solutions.length > 1)
-  end
-
-  def empty_question(question)
-    Constraint.new(question)
   end
 
   def get_new_question
