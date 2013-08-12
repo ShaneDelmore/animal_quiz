@@ -19,9 +19,7 @@ def empty_question(question)
 end
 
 def populated_finder
-  result = empty_finder
-  result.classifier = populated_classifier
-  result
+  AnimalFinder.new(populated_classifier, fake_ui)
 end
 
 def ready_to_play_unsuccessfully

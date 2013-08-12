@@ -7,39 +7,36 @@ class AnimalFinder
 
   #use delegator to delegate/alias calls to ui and classifier
   def_delegators :@classifier, :potential_solutions, 
-    :sorted_potential_constraints,
-    :constraints,
     :skipped_constraints,
-    :update_constraints,
-    :reset_classifier_state,
     :next_constraint,
     :solved?,
     :next_learning_question,
+    :save_and_reset,
     :add_positive_constraint
 
   def_delegators :@ui, :tell,
     :ask,
     :ask_yes_no
 
-  attr_accessor :classifier, :ui 
+  attr_reader :classifier, :ui 
 
   def initialize(classifier, ui)
     @classifier = classifier
     @ui = ui
   end
 
-  def save_and_reset
-    update_constraints
-    reset_classifier_state
-    classifier.save
+  def play
+    tell "Think of an animal and I will try to figure out what it is."
+    ask_clarifying_questions
+    #Ask one more unrelated question to help with learning.
+    get_answer(next_learning_question) 
+    try_best_solution unless potential_solutions.empty?
+    ask_for_help unless solved?
   end
-
-  def keep_playing?
-    next_constraint && (potential_solutions.length > 1)
-  end
-
-  def empty_question(question)
-    Constraint.new(question)
+  
+  def ask_clarifying_questions
+    get_answer(next_constraint)
+    ask_clarifying_questions if keep_playing?
   end
 
   def get_answer(constraint)
@@ -48,9 +45,12 @@ class AnimalFinder
     classifier.skipped_constraints << constraint if constraint.answer.nil?
   end
 
-  def ask_clarifying_questions
-    get_answer(next_constraint)
-    ask_clarifying_questions if keep_playing?
+  def keep_playing?
+    next_constraint && (potential_solutions.length > 1)
+  end
+
+  def empty_question(question)
+    Constraint.new(question)
   end
 
   def get_new_question
@@ -76,17 +76,6 @@ class AnimalFinder
     show_potential_solutions if multiple_possibilities?
     classifier.correct_solution = ask("What was the animal you were thinking of?").to_sym
     get_new_question
-  end
-
-  def play
-    tell "Think of an animal and I will try to figure out what it is."
-    ask_clarifying_questions
-
-    #Ask one more unrelated question to help with learning.
-    get_answer(next_learning_question) 
-
-    try_best_solution unless potential_solutions.empty?
-    ask_for_help unless solved?
   end
 end
 

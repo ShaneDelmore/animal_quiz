@@ -33,6 +33,12 @@ class Classifier
     File.open(Classifier.save_file_name, 'w+') {|f| f.write(self.to_yaml) }
   end
   
+  def save_and_reset
+    update_constraints
+    reset_classifier_state
+    save
+  end
+
   def update_constraints
     if solved?
       answered_constraints.each do |constraint|
